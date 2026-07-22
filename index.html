@@ -3,183 +3,324 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DXOFFICIALS EMPIRE - Vee CBT Prep</title>
+  <title>Cognito - Premium AI Powered Exam Prep</title>
   
-  <meta name="theme-color" content="#0f172a">
+  <meta name="theme-color" content="#000000">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="DX-Vee CBT">
+  <meta name="apple-mobile-web-app-title" content="Cognito">
 
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background-color: #0f172a; color: #f8fafc; margin: 0; padding: 15px; }
+    body { background-color: #000000; color: #f8fafc; margin: 0; padding: 15px; padding-bottom: 80px; }
     
-    /* Header & Branding */
-    .header { text-align: center; padding: 10px 0; border-bottom: 2px solid #334155; }
-    .header h1 { color: #f59e0b; margin: 0; font-size: 24px; letter-spacing: 1px; }
-    .header p { color: #94a3b8; margin: 5px 0 0; font-size: 13px; }
+    /* Cognito Black & Gold Header */
+    .header { text-align: center; padding: 10px 0 15px 0; border-bottom: 2px solid #d4af37; }
+    .header h1 { color: #ffd700; margin: 0; font-size: 24px; font-weight: 800; letter-spacing: 2px; text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+    .header p { color: #d4af37; margin: 6px 0 0; font-size: 14px; letter-spacing: 0.5px; font-weight: 600; }
     
-    /* Control Bar */
-    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; gap: 10px; }
-    .subject-select { background: #1e293b; color: #f59e0b; border: 1px solid #475569; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 14px; flex: 1; outline: none; }
-    .score-board { color: #38bdf8; font-weight: bold; font-size: 14px; background: #1e293b; padding: 10px; border-radius: 8px; border: 1px solid #334155; white-space: nowrap; }
+    /* Navigation Bar */
+    .nav-tabs { display: flex; background: #111111; padding: 5px; border-radius: 10px; margin-top: 15px; border: 1px solid #d4af37; gap: 4px; }
+    .nav-btn { flex: 1; background: transparent; color: #d4af37; border: none; padding: 10px 4px; border-radius: 8px; font-size: 11px; font-weight: bold; cursor: pointer; transition: 0.2s; text-align: center; }
+    .nav-btn.active { background: linear-gradient(135deg, #ffd700, #b8860b); color: #000000; font-weight: 800; box-shadow: 0 0 8px rgba(255, 215, 0, 0.4); }
+
+    /* Views */
+    .view-section { display: none; margin-top: 15px; }
+    .view-section.active { display: block; }
+
+    /* Selection Filters */
+    .filter-card { background: #111111; padding: 15px; border-radius: 10px; border: 1px solid #333333; margin-bottom: 15px; display: flex; flex-direction: column; gap: 10px; }
+    .filter-row { display: flex; gap: 10px; }
+    .select-box { background: #000000; color: #ffd700; border: 1px solid #d4af37; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 13px; flex: 1; outline: none; }
     
+    /* Info & Timer Bar */
+    .info-bar { display: flex; justify-content: space-between; align-items: center; background: #111111; padding: 10px 15px; border-radius: 8px; border: 1px solid #d4af37; margin-bottom: 15px; font-weight: bold; font-size: 14px; }
+    .timer { color: #ff4d4d; }
+    .score-board { color: #ffd700; }
+
     /* Main Question Card */
-    .card { background: #1e293b; border-radius: 12px; padding: 20px; margin-top: 15px; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-    .subject-tag { color: #f59e0b; font-weight: bold; font-size: 13px; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
-    .question-title { font-size: 17px; color: #e2e8f0; margin-bottom: 18px; line-height: 1.5; font-weight: 600; }
+    .card { background: #111111; border-radius: 12px; padding: 20px; border: 1px solid #333333; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15); }
+    .subject-tag { color: #ffd700; font-weight: bold; font-size: 13px; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1px; }
+    .question-title { font-size: 17px; color: #ffffff; margin-bottom: 18px; line-height: 1.5; font-weight: 600; }
     
-    /* Options Styling */
+    /* Options */
     .options { display: flex; flex-direction: column; gap: 10px; }
-    .option-btn { background: #334155; color: #fff; border: 1px solid #475569; padding: 14px; border-radius: 8px; font-size: 15px; text-align: left; cursor: pointer; transition: background 0.2s, border 0.2s; line-height: 1.4; }
-    .option-btn:active { background: #475569; }
-    .option-btn.correct { background: #16a34a !important; border-color: #22c55e !important; color: #ffffff !important; font-weight: bold; }
-    .option-btn.wrong { background: #dc2626 !important; border-color: #ef4444 !important; color: #ffffff !important; }
+    .option-btn { background: #1a1a1a; color: #ffffff; border: 1px solid #333333; padding: 14px; border-radius: 8px; font-size: 15px; text-align: left; cursor: pointer; transition: 0.2s; }
+    .option-btn:hover { border-color: #d4af37; }
+    .option-btn.correct { background: #15803d !important; border-color: #22c55e !important; color: #ffffff !important; }
+    .option-btn.wrong { background: #991b1b !important; border-color: #ef4444 !important; color: #ffffff !important; }
     
-    /* Action Buttons */
+    /* Buttons */
     .action-row { display: flex; gap: 10px; margin-top: 20px; }
-    .ask-vee-btn { background: #f59e0b; color: #0f172a; border: none; padding: 14px; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; flex: 1; transition: 0.2s; }
-    .next-btn { background: #3b82f6; color: #fff; border: none; padding: 14px 20px; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+    .ask-vee-btn { background: linear-gradient(135deg, #ffd700, #b8860b); color: #000000; border: none; padding: 14px; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; flex: 1; }
+    .next-btn { background: #222222; color: #ffd700; border: 1px solid #d4af37; padding: 14px 20px; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; }
     
-    /* Vee AI Solution Panel */
-    .vee-panel { display: none; background: #0284c7; border-radius: 12px; padding: 16px; margin-top: 15px; color: #fff; border: 1px solid #38bdf8; }
-    .vee-header { font-weight: bold; font-size: 17px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: #fef08a; }
-    
-    /* Method Tabs */
+    /* Vee Panel */
+    .vee-panel { display: none; background: #181818; border-radius: 12px; padding: 16px; margin-top: 15px; color: #fff; border: 1px solid #d4af37; }
+    .vee-header { font-weight: bold; font-size: 17px; margin-bottom: 12px; color: #ffd700; }
     .tabs { display: flex; gap: 6px; margin-bottom: 12px; }
-    .tab-btn { background: #0369a1; color: #e0f2fe; border: 1px solid #0284c7; padding: 9px 6px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; flex: 1; text-align: center; }
-    .tab-btn.active { background: #f59e0b; color: #0f172a; border-color: #f59e0b; }
-    
-    /* Explanations & Distractor Analysis */
-    .explanation-text { background: rgba(0,0,0,0.25); padding: 12px; border-radius: 8px; font-size: 14px; line-height: 1.5; }
-    .wrong-breakdown { margin-top: 12px; background: rgba(0,0,0,0.35); padding: 12px; border-radius: 8px; font-size: 13px; line-height: 1.5; border-left: 4px solid #f59e0b; }
-    
-    /* Empty State Notice */
-    .empty-msg { text-align: center; padding: 20px; color: #94a3b8; font-size: 15px; }
+    .tab-btn { background: #000000; color: #d4af37; border: 1px solid #333333; padding: 9px 6px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; flex: 1; }
+    .tab-btn.active { background: #ffd700; color: #000000; border-color: #ffd700; }
+    .explanation-text { background: #090909; padding: 12px; border-radius: 8px; font-size: 14px; line-height: 1.5; border: 1px solid #222; }
+    .wrong-breakdown { margin-top: 12px; background: #090909; padding: 12px; border-radius: 8px; font-size: 13px; line-height: 1.5; border-left: 4px solid #ffd700; }
+
+    /* Chat Hub */
+    .chat-box { background: #111111; border-radius: 12px; padding: 15px; border: 1px solid #d4af37; min-height: 350px; display: flex; flex-direction: column; justify-content: space-between; }
+    .chat-messages { display: flex; flex-direction: column; gap: 10px; max-height: 350px; overflow-y: auto; }
+    .msg { padding: 12px 15px; border-radius: 10px; font-size: 14px; line-height: 1.4; max-width: 85%; }
+    .msg.vee { background: #1a1a1a; color: #ffd700; border: 1px solid #d4af37; align-self: flex-start; }
+    .msg.user { background: #ffd700; color: #000000; font-weight: 600; align-self: flex-end; }
+    .chat-input-row { display: flex; gap: 8px; margin-top: 15px; }
+    .chat-input { flex: 1; background: #000000; border: 1px solid #d4af37; color: #fff; padding: 12px; border-radius: 8px; font-size: 14px; outline: none; }
+    .send-btn { background: linear-gradient(135deg, #ffd700, #b8860b); color: #000000; border: none; padding: 12px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+
+    /* Premium Hub */
+    .premium-card { background: #111111; border-radius: 12px; padding: 20px; border: 1px solid #ffd700; margin-bottom: 15px; position: relative; box-shadow: 0 0 10px rgba(255,215,0,0.1); }
+    .badge-lock { position: absolute; top: 15px; right: 15px; background: #ffd700; color: #000000; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; }
+    .premium-title { font-size: 18px; font-weight: bold; color: #ffd700; margin-bottom: 5px; }
+    .premium-desc { color: #cccccc; font-size: 13px; line-height: 1.4; margin-bottom: 15px; }
+    .unlock-btn { background: linear-gradient(135deg, #ffd700, #b8860b); color: #000000; border: none; width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 14px; cursor: pointer; }
+    .start-exam-btn { background: linear-gradient(135deg, #ffd700, #b8860b); color: #000000; border: none; padding: 12px; border-radius: 8px; font-weight: bold; width: 100%; cursor: pointer; }
   </style>
 </head>
 <body>
 
   <div class="header">
-    <h1>DXOFFICIALS EMPIRE</h1>
-    <p>Powered by Vee - AI Study Assistant</p>
+    <h1>WELCOME TO COGNITO</h1>
+    <p>Ready to learn? Powered by Vee - AI Learning Assistant</p>
   </div>
 
-  <div class="top-bar">
-    <select class="subject-select" id="subjectFilter" onchange="filterSubject()">
-      <option value="ALL">📚 All Subjects</option>
-      <option value="JAMB Mathematics">📐 JAMB Mathematics</option>
-      <option value="JAMB Physics">⚡ JAMB Physics</option>
-      <option value="JAMB Chemistry">🧪 JAMB Chemistry</option>
-      <option value="JAMB English">📖 JAMB English</option>
-    </select>
-    <div class="score-board" id="scoreBoard">Score: 0 / 0</div>
+  <div class="nav-tabs">
+    <button class="nav-btn active" onclick="switchView('testView', this)">📝 Take Test</button>
+    <button class="nav-btn" onclick="switchView('examView', this)">⏱️ Take Exam</button>
+    <button class="nav-btn" onclick="switchView('chatView', this)">🤖 Chat Vee</button>
+    <button class="nav-btn" onclick="switchView('specialView', this)">👑 Special</button>
   </div>
 
-  <div class="card">
-    <div class="subject-tag" id="subjectTag">JAMB Prep</div>
-    <div class="question-title" id="questionText">Loading questions...</div>
-    <div class="options" id="optionsContainer"></div>
-
-    <div class="action-row">
-      <button class="ask-vee-btn" onclick="toggleVee()">🤖 Ask Vee for Explanation</button>
-      <button class="next-btn" onclick="nextQuestion()">Next ➡️</button>
+  <div id="testView" class="view-section active">
+    <div class="filter-card">
+      <div class="filter-row">
+        <select class="select-box" id="testExamBody" onchange="applyTestFilter()">
+          <option value="ALL">All Exams (JAMB/WAEC/NECO/IGCSE)</option>
+          <option value="JAMB">JAMB</option>
+          <option value="WAEC">WAEC</option>
+          <option value="NECO">NECO</option>
+          <option value="IGCSE">IGCSE</option>
+        </select>
+        <select class="select-box" id="testDepartment" onchange="updateSubjects('testDepartment', 'testSubject')">
+          <option value="ALL">All Departments</option>
+          <option value="Science">Science</option>
+          <option value="Arts">Arts</option>
+          <option value="Commercial">Commercial</option>
+        </select>
+      </div>
+      <select class="select-box" id="testSubject" onchange="applyTestFilter()">
+        <option value="ALL">All Subjects</option>
+      </select>
     </div>
 
-    <div class="vee-panel" id="veePanel">
-      <div class="vee-header">💡 Vee's Simplified Solution</div>
-      <div class="tabs">
-        <button class="tab-btn active" id="tab1" onclick="showMethod(1)">1. Speed Elimination</button>
-        <button class="tab-btn" id="tab2" onclick="showMethod(2)">2. Plain English</button>
-        <button class="tab-btn" id="tab3" onclick="showMethod(3)">3. Standard Concept</button>
+    <div class="info-bar">
+      <span>Mode: Practice</span>
+      <span class="score-board" id="testScore">Score: 0 / 0</span>
+    </div>
+
+    <div class="card">
+      <div class="subject-tag" id="testSubjectTag">JAMB Prep</div>
+      <div class="question-title" id="testQuestionText">Loading questions...</div>
+      <div class="options" id="testOptionsContainer"></div>
+
+      <div class="action-row">
+        <button class="ask-vee-btn" onclick="toggleVee()">🤖 Ask Vee for Explanation</button>
+        <button class="next-btn" onclick="nextTestQuestion()">Next ➡️</button>
       </div>
-      <div class="explanation-text" id="methodText"></div>
-      <div class="wrong-breakdown" id="wrongBreakdownText"></div>
+
+      <div class="vee-panel" id="veePanel">
+        <div class="vee-header">💡 Vee's Simplified Solution</div>
+        <div class="tabs">
+          <button class="tab-btn active" id="tab1" onclick="showMethod(1)">1. Speed Elimination</button>
+          <button class="tab-btn" id="tab2" onclick="showMethod(2)">2. Plain English</button>
+          <button class="tab-btn" id="tab3" onclick="showMethod(3)">3. Standard Concept</button>
+        </div>
+        <div class="explanation-text" id="methodText"></div>
+        <div class="wrong-breakdown" id="wrongBreakdownText"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="examView" class="view-section">
+    <div class="filter-card">
+      <div class="filter-row">
+        <select class="select-box" id="examBody">
+          <option value="JAMB">JAMB (Strict Speed)</option>
+          <option value="WAEC">WAEC Standard</option>
+          <option value="NECO">NECO Standard</option>
+          <option value="IGCSE">IGCSE Cambridge</option>
+        </select>
+        <select class="select-box" id="examDepartment" onchange="updateSubjects('examDepartment', 'examSubject')">
+          <option value="Science">Science</option>
+          <option value="Arts">Arts</option>
+          <option value="Commercial">Commercial</option>
+        </select>
+      </div>
+      <select class="select-box" id="examSubject">
+        </select>
+      <button class="start-exam-btn" onclick="startExamTimer()">🚀 Start Timed Exam Trial</button>
+    </div>
+
+    <div class="info-bar" id="examInfoBar" style="display:none;">
+      <span class="timer" id="examTimer">⏳ Time Left: 15:00</span>
+      <span class="score-board" id="examScore">Score: 0 / 0</span>
+    </div>
+
+    <div class="card" id="examCard" style="display:none;">
+      <div class="subject-tag" id="examSubjectTag">JAMB Exam</div>
+      <div class="question-title" id="examQuestionText">Press Start to begin!</div>
+      <div class="options" id="examOptionsContainer"></div>
+
+      <div class="action-row">
+        <button class="next-btn" style="width:100%" onclick="nextExamQuestion()">Submit & Next Question ➡️</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="chatView" class="view-section">
+    <div class="chat-box">
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg vee">Hi! I am <b>Vee</b>, your Cognito AI tutor. Type any topic, formula, or concept you find difficult, and I'll break it down for you!</div>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" class="chat-input" id="userInput" placeholder="Ask Vee (e.g. Explain Quadratic Equations)...">
+        <button class="send-btn" onclick="sendToVee()">Ask</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="specialView" class="view-section">
+    <div class="premium-card">
+      <span class="badge-lock">🔒 PREMIUM</span>
+      <div class="premium-title">JAMB 2026 National Speed Trial</div>
+      <div class="premium-desc">Simulate full 4-subject speed trials under real JAMB CBT hall conditions with national ranking.</div>
+      <button class="unlock-btn" onclick="alert('Payment Portal Coming Soon!')">Unlock Access (₦1,000)</button>
+    </div>
+
+    <div class="premium-card">
+      <span class="badge-lock">🔒 PREMIUM</span>
+      <div class="premium-title">WAEC / NECO Theory Masterclass</div>
+      <div class="premium-desc">Access detailed step-by-step essay and practical questions graded against official WAEC marking schemes.</div>
+      <button class="unlock-btn" onclick="alert('Payment Portal Coming Soon!')">Unlock Access (₦1,500)</button>
     </div>
   </div>
 
   <script src="questions.js"></script>
 
   <script>
-    let activeQuestions = [];
-    let currentIndex = 0;
-    let selectedOptionIndex = null;
-    let score = 0;
-    let totalAnswered = 0;
+    const subjectsMap = {
+      Science: ["Mathematics", "Physics", "Chemistry", "Biology", "English Language"],
+      Arts: ["English Language", "Literature-in-English", "Government", "CRS/IRS", "Mathematics"],
+      Commercial: ["Mathematics", "English Language", "Economics", "Commerce", "Financial Accounting"]
+    };
+
+    let activeTestQuestions = [];
+    let testIndex = 0;
+    let testScoreCount = 0;
+    let testTotalCount = 0;
+
+    let activeExamQuestions = [];
+    let examIndex = 0;
+    let examScoreCount = 0;
+    let examTotalCount = 0;
+    let timerInterval = null;
+
+    function switchView(viewId, btn) {
+      document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(viewId).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    function updateSubjects(deptSelectId, subjectSelectId) {
+      const dept = document.getElementById(deptSelectId).value;
+      const subSelect = document.getElementById(subjectSelectId);
+      subSelect.innerHTML = '<option value="ALL">All Subjects</option>';
+
+      if (subjectsMap[dept]) {
+        subjectsMap[dept].forEach(sub => {
+          const opt = document.createElement('option');
+          opt.value = sub;
+          opt.innerText = sub;
+          subSelect.appendChild(opt);
+        });
+      }
+    }
 
     function initApp() {
-      if (typeof questionBank !== 'undefined' && questionBank.length > 0) {
-        activeQuestions = [...questionBank];
-        loadQuestion();
-      } else {
-        document.getElementById('questionText').innerHTML = "<div class='empty-msg'>No questions found in questions.js!</div>";
-      }
+      updateSubjects('testDepartment', 'testSubject');
+      updateSubjects('examDepartment', 'examSubject');
+      applyTestFilter();
     }
 
-    function filterSubject() {
-      const selected = document.getElementById('subjectFilter').value;
-      if (selected === 'ALL') {
-        activeQuestions = [...questionBank];
-      } else {
-        activeQuestions = questionBank.filter(q => q.subject === selected);
-      }
-      currentIndex = 0;
-      loadQuestion();
+    function applyTestFilter() {
+      if (typeof questionBank === 'undefined') return;
+      
+      const body = document.getElementById('testExamBody').value;
+      const sub = document.getElementById('testSubject').value;
+
+      activeTestQuestions = questionBank.filter(q => {
+        const matchBody = (body === 'ALL' || q.subject.includes(body));
+        const matchSub = (sub === 'ALL' || q.subject.includes(sub));
+        return matchBody && matchSub;
+      });
+
+      testIndex = 0;
+      loadTestQuestion();
     }
 
-    function loadQuestion() {
-      if (activeQuestions.length === 0) {
-        document.getElementById('subjectTag').innerText = "Notice";
-        document.getElementById('questionText').innerHTML = "<div class='empty-msg'>No questions available for this subject yet!</div>";
-        document.getElementById('optionsContainer').innerHTML = '';
-        document.getElementById('veePanel').style.display = 'none';
+    function loadTestQuestion() {
+      if (activeTestQuestions.length === 0) {
+        document.getElementById('testQuestionText').innerText = "No practice questions found for this selection yet!";
+        document.getElementById('testOptionsContainer').innerHTML = '';
         return;
       }
 
-      const q = activeQuestions[currentIndex];
-      document.getElementById('subjectTag').innerText = q.subject;
-      document.getElementById('questionText').innerText = q.question;
+      const q = activeTestQuestions[testIndex];
+      document.getElementById('testSubjectTag').innerText = q.subject;
+      document.getElementById('testQuestionText').innerText = q.question;
       
-      const container = document.getElementById('optionsContainer');
+      const container = document.getElementById('testOptionsContainer');
       container.innerHTML = '';
-      selectedOptionIndex = null;
       document.getElementById('veePanel').style.display = 'none';
 
       q.options.forEach((optText, index) => {
         const btn = document.createElement('button');
         btn.className = 'option-btn';
         btn.innerText = optText;
-        btn.onclick = () => checkAnswer(index, btn);
+        btn.onclick = () => checkTestAnswer(index, btn);
         container.appendChild(btn);
       });
 
       showMethod(1);
     }
 
-    function checkAnswer(chosenIndex, btnElement) {
-      if (selectedOptionIndex !== null) return;
-      selectedOptionIndex = chosenIndex;
-      totalAnswered++;
+    function checkTestAnswer(chosenIndex, btnElement) {
+      const q = activeTestQuestions[testIndex];
+      const allBtns = document.querySelectorAll('#testOptionsContainer .option-btn');
       
-      const q = activeQuestions[currentIndex];
-      const allBtns = document.querySelectorAll('.option-btn');
-
+      testTotalCount++;
       if (chosenIndex === q.answerIndex) {
         btnElement.classList.add('correct');
-        score++;
+        testScoreCount++;
       } else {
         btnElement.classList.add('wrong');
         allBtns[q.answerIndex].classList.add('correct');
       }
 
-      document.getElementById('scoreBoard').innerText = `Score: ${score} / ${totalAnswered}`;
+      document.getElementById('testScore').innerText = `Score: ${testScoreCount} / ${testTotalCount}`;
       document.getElementById('veePanel').style.display = 'block';
     }
 
-    function nextQuestion() {
-      if (activeQuestions.length === 0) return;
-      currentIndex = (currentIndex + 1) % activeQuestions.length;
-      loadQuestion();
+    function nextTestQuestion() {
+      if (activeTestQuestions.length === 0) return;
+      testIndex = (testIndex + 1) % activeTestQuestions.length;
+      loadTestQuestion();
     }
 
     function toggleVee() {
@@ -188,21 +329,119 @@
     }
 
     function showMethod(num) {
-      if (activeQuestions.length === 0) return;
-      const q = activeQuestions[currentIndex];
-      const text = document.getElementById('methodText');
+      if (activeTestQuestions.length === 0) return;
+      const q = activeTestQuestions[testIndex];
       
       document.getElementById('tab1').classList.remove('active');
       document.getElementById('tab2').classList.remove('active');
       document.getElementById('tab3').classList.remove('active');
-
       document.getElementById('tab' + num).classList.add('active');
 
-      if (num === 1) text.innerHTML = q.m1;
-      if (num === 2) text.innerHTML = q.m2;
-      if (num === 3) text.innerHTML = q.m3;
+      if (num === 1) document.getElementById('methodText').innerHTML = q.m1;
+      if (num === 2) document.getElementById('methodText').innerHTML = q.m2;
+      if (num === 3) document.getElementById('methodText').innerHTML = q.m3;
 
       document.getElementById('wrongBreakdownText').innerHTML = q.wrongBreakdown;
+    }
+
+    function startExamTimer() {
+      const body = document.getElementById('examBody').value;
+      const sub = document.getElementById('examSubject').value;
+
+      activeExamQuestions = questionBank.filter(q => {
+        const matchBody = q.subject.includes(body);
+        const matchSub = (sub === 'ALL' || q.subject.includes(sub));
+        return matchBody && matchSub;
+      });
+
+      if (activeExamQuestions.length === 0) {
+        alert("No exam questions found for this configuration!");
+        return;
+      }
+
+      document.getElementById('examInfoBar').style.display = 'flex';
+      document.getElementById('examCard').style.display = 'block';
+
+      examIndex = 0;
+      examScoreCount = 0;
+      examTotalCount = 0;
+      loadExamQuestion();
+
+      let timeLeft = 15 * 60;
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        document.getElementById('examTimer').innerText = `⏳ Time Left: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          alert(`⏰ Time's Up! Your Exam Score: ${examScoreCount} / ${activeExamQuestions.length}`);
+        }
+        timeLeft--;
+      }, 1000);
+    }
+
+    function loadExamQuestion() {
+      const q = activeExamQuestions[examIndex];
+      document.getElementById('examSubjectTag').innerText = q.subject;
+      document.getElementById('examQuestionText').innerText = q.question;
+
+      const container = document.getElementById('examOptionsContainer');
+      container.innerHTML = '';
+
+      q.options.forEach((optText, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = optText;
+        btn.onclick = () => {
+          document.querySelectorAll('#examOptionsContainer .option-btn').forEach(b => b.style.borderColor = '#333333');
+          btn.style.borderColor = '#ffd700';
+          btn.dataset.selected = index;
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function nextExamQuestion() {
+      const selectedBtn = document.querySelector('#examOptionsContainer .option-btn[data-selected]');
+      if (selectedBtn) {
+        const chosen = parseInt(selectedBtn.dataset.selected);
+        if (chosen === activeExamQuestions[examIndex].answerIndex) {
+          examScoreCount++;
+        }
+      }
+      
+      examIndex++;
+      if (examIndex < activeExamQuestions.length) {
+        loadExamQuestion();
+      } else {
+        clearInterval(timerInterval);
+        alert(`🎉 Exam Completed! Final Score: ${examScoreCount} / ${activeExamQuestions.length}`);
+      }
+    }
+
+    function sendToVee() {
+      const input = document.getElementById('userInput');
+      const val = input.value.trim();
+      if (!val) return;
+
+      const chatBox = document.getElementById('chatMessages');
+      
+      const userMsg = document.createElement('div');
+      userMsg.className = 'msg user';
+      userMsg.innerText = val;
+      chatBox.appendChild(userMsg);
+
+      input.value = '';
+
+      setTimeout(() => {
+        const veeMsg = document.createElement('div');
+        veeMsg.className = 'msg vee';
+        veeMsg.innerHTML = `<b>Vee:</b> Great question about "<b>${val}</b>"! I am breaking down this concept for you step-by-step in plain English...`;
+        chatBox.appendChild(veeMsg);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 600);
     }
 
     window.onload = initApp;
