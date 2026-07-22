@@ -4,32 +4,58 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DXOFFICIALS EMPIRE - Vee CBT Prep</title>
+  
+  <meta name="theme-color" content="#0f172a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="DX-Vee CBT">
+
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     body { background-color: #0f172a; color: #f8fafc; margin: 0; padding: 15px; }
+    
+    /* Header & Branding */
     .header { text-align: center; padding: 10px 0; border-bottom: 2px solid #334155; }
-    .header h1 { color: #f59e0b; margin: 0; font-size: 24px; }
-    .header p { color: #94a3b8; margin: 5px 0 0; font-size: 14px; }
-    .score-board { text-align: right; color: #38bdf8; font-weight: bold; margin-top: 10px; font-size: 14px; }
-    .card { background: #1e293b; border-radius: 12px; padding: 20px; margin-top: 10px; border: 1px solid #334155; }
-    .subject-tag { color: #f59e0b; font-weight: bold; font-size: 14px; text-transform: uppercase; margin-bottom: 8px; }
-    .question-title { font-size: 18px; color: #e2e8f0; margin-bottom: 15px; line-height: 1.4; }
+    .header h1 { color: #f59e0b; margin: 0; font-size: 24px; letter-spacing: 1px; }
+    .header p { color: #94a3b8; margin: 5px 0 0; font-size: 13px; }
+    
+    /* Control Bar */
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; gap: 10px; }
+    .subject-select { background: #1e293b; color: #f59e0b; border: 1px solid #475569; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 14px; flex: 1; outline: none; }
+    .score-board { color: #38bdf8; font-weight: bold; font-size: 14px; background: #1e293b; padding: 10px; border-radius: 8px; border: 1px solid #334155; white-space: nowrap; }
+    
+    /* Main Question Card */
+    .card { background: #1e293b; border-radius: 12px; padding: 20px; margin-top: 15px; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    .subject-tag { color: #f59e0b; font-weight: bold; font-size: 13px; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
+    .question-title { font-size: 17px; color: #e2e8f0; margin-bottom: 18px; line-height: 1.5; font-weight: 600; }
+    
+    /* Options Styling */
     .options { display: flex; flex-direction: column; gap: 10px; }
-    .option-btn { background: #334155; color: #fff; border: 1px solid #475569; padding: 12px; border-radius: 8px; font-size: 16px; text-align: left; cursor: pointer; transition: 0.2s; }
-    .option-btn.correct { background: #16a34a !important; border-color: #22c55e !important; }
-    .option-btn.wrong { background: #dc2626 !important; border-color: #ef4444 !important; }
+    .option-btn { background: #334155; color: #fff; border: 1px solid #475569; padding: 14px; border-radius: 8px; font-size: 15px; text-align: left; cursor: pointer; transition: background 0.2s, border 0.2s; line-height: 1.4; }
+    .option-btn:active { background: #475569; }
+    .option-btn.correct { background: #16a34a !important; border-color: #22c55e !important; color: #ffffff !important; font-weight: bold; }
+    .option-btn.wrong { background: #dc2626 !important; border-color: #ef4444 !important; color: #ffffff !important; }
     
+    /* Action Buttons */
     .action-row { display: flex; gap: 10px; margin-top: 20px; }
-    .ask-vee-btn { background: #f59e0b; color: #0f172a; border: none; padding: 14px; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; flex: 1; }
-    .next-btn { background: #3b82f6; color: #fff; border: none; padding: 14px; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; }
+    .ask-vee-btn { background: #f59e0b; color: #0f172a; border: none; padding: 14px; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; flex: 1; transition: 0.2s; }
+    .next-btn { background: #3b82f6; color: #fff; border: none; padding: 14px 20px; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.2s; }
     
-    .vee-panel { display: none; background: #0284c7; border-radius: 12px; padding: 15px; margin-top: 15px; color: #fff; }
-    .vee-header { font-weight: bold; font-size: 18px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-    .tabs { display: flex; gap: 5px; margin-bottom: 10px; }
-    .tab-btn { background: #0369a1; color: #fff; border: none; padding: 8px 12px; border-radius: 5px; font-size: 12px; font-weight: bold; cursor: pointer; flex: 1; }
-    .tab-btn.active { background: #f59e0b; color: #0f172a; }
-    .explanation-text { background: rgba(0,0,0,0.2); padding: 12px; border-radius: 6px; font-size: 14px; line-height: 1.5; }
-    .wrong-breakdown { margin-top: 12px; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 6px; font-size: 13px; line-height: 1.5; border-left: 4px solid #f59e0b; }
+    /* Vee AI Solution Panel */
+    .vee-panel { display: none; background: #0284c7; border-radius: 12px; padding: 16px; margin-top: 15px; color: #fff; border: 1px solid #38bdf8; }
+    .vee-header { font-weight: bold; font-size: 17px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: #fef08a; }
+    
+    /* Method Tabs */
+    .tabs { display: flex; gap: 6px; margin-bottom: 12px; }
+    .tab-btn { background: #0369a1; color: #e0f2fe; border: 1px solid #0284c7; padding: 9px 6px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; flex: 1; text-align: center; }
+    .tab-btn.active { background: #f59e0b; color: #0f172a; border-color: #f59e0b; }
+    
+    /* Explanations & Distractor Analysis */
+    .explanation-text { background: rgba(0,0,0,0.25); padding: 12px; border-radius: 8px; font-size: 14px; line-height: 1.5; }
+    .wrong-breakdown { margin-top: 12px; background: rgba(0,0,0,0.35); padding: 12px; border-radius: 8px; font-size: 13px; line-height: 1.5; border-left: 4px solid #f59e0b; }
+    
+    /* Empty State Notice */
+    .empty-msg { text-align: center; padding: 20px; color: #94a3b8; font-size: 15px; }
   </style>
 </head>
 <body>
@@ -39,11 +65,20 @@
     <p>Powered by Vee - AI Study Assistant</p>
   </div>
 
-  <div class="score-board" id="scoreBoard">Score: 0 / 0</div>
+  <div class="top-bar">
+    <select class="subject-select" id="subjectFilter" onchange="filterSubject()">
+      <option value="ALL">📚 All Subjects</option>
+      <option value="JAMB Mathematics">📐 JAMB Mathematics</option>
+      <option value="JAMB Physics">⚡ JAMB Physics</option>
+      <option value="JAMB Chemistry">🧪 JAMB Chemistry</option>
+      <option value="JAMB English">📖 JAMB English</option>
+    </select>
+    <div class="score-board" id="scoreBoard">Score: 0 / 0</div>
+  </div>
 
   <div class="card">
     <div class="subject-tag" id="subjectTag">JAMB Prep</div>
-    <div class="question-title" id="questionText">Loading question...</div>
+    <div class="question-title" id="questionText">Loading questions...</div>
     <div class="options" id="optionsContainer"></div>
 
     <div class="action-row">
@@ -63,37 +98,45 @@
     </div>
   </div>
 
-  <script>
-    const questions = [
-      {
-        subject: "JAMB Chemistry",
-        question: "Which of the following gases turns lime water milky?",
-        options: ["A) Oxygen", "B) Carbon (IV) Oxide", "C) Hydrogen", "D) Ammonia"],
-        answerIndex: 1,
-        m1: "<b>⚡ Speed Elimination Trick:</b> Lime water is acidic/neutral, so it tests for acidic gases. Oxygen and Hydrogen are neutral gases, while Ammonia is alkaline. That leaves Carbon (IV) Oxide as the only acidic oxide here!",
-        m2: "<b>Plain-English Logic:</b> Lime water contains dissolved calcium. When Carbon (IV) Oxide gas passes through it, it reacts to form insoluble chalk powder (limestone), making the water look white like milk.",
-        m3: "<b>Standard Reaction Formula:</b><br>Ca(OH)₂ (aq) + CO₂ (g) → CaCO₃ (s) + H₂O (l)<br><i>CaCO₃ is the white solid precipitate that creates the milky appearance.</i>",
-        wrongBreakdown: "<b>❌ Why Other Options Are Wrong:</b><br>• <b>A) Oxygen:</b> Supports burning; relights a glowing wooden splint.<br>• <b>C) Hydrogen:</b> Highly flammable gas; burns with a sharp 'pop' sound.<br>• <b>D) Ammonia:</b> Alkaline gas; turns damp red litmus paper blue and has a sharp smell."
-      },
-      {
-        subject: "JAMB Physics",
-        question: "What is the S.I. unit of Force?",
-        options: ["A) Joule", "B) Watt", "C) Newton", "D) Pascal"],
-        answerIndex: 2,
-        m1: "<b>⚡ Speed Elimination Trick:</b> Think about physics formulas! F = ma. Since Force causes acceleration of mass, eliminate Joules (energy) and Watts (power). The unit named after Newton represents force directly.",
-        m2: "<b>Plain-English Logic:</b> Force is simply a push or a pull. Sir Isaac Newton calculated the laws governing pushes and pulls, so the international unit of force was named in his honor.",
-        m3: "<b>Standard Formula:</b><br>Force = Mass × Acceleration (F = ma)<br>Mass (kg) × Acceleration (m/s²) = <b>1 Newton (N)</b>.",
-        wrongBreakdown: "<b>❌ Why Other Options Are Wrong:</b><br>• <b>A) Joule:</b> S.I. unit for Energy and Work done.<br>• <b>B) Watt:</b> S.I. unit for Power (Work ÷ Time).<br>• <b>D) Pascal:</b> S.I. unit for Pressure (Force ÷ Area)."
-      }
-    ];
+  <script src="questions.js"></script>
 
+  <script>
+    let activeQuestions = [];
     let currentIndex = 0;
     let selectedOptionIndex = null;
     let score = 0;
     let totalAnswered = 0;
 
+    function initApp() {
+      if (typeof questionBank !== 'undefined' && questionBank.length > 0) {
+        activeQuestions = [...questionBank];
+        loadQuestion();
+      } else {
+        document.getElementById('questionText').innerHTML = "<div class='empty-msg'>No questions found in questions.js!</div>";
+      }
+    }
+
+    function filterSubject() {
+      const selected = document.getElementById('subjectFilter').value;
+      if (selected === 'ALL') {
+        activeQuestions = [...questionBank];
+      } else {
+        activeQuestions = questionBank.filter(q => q.subject === selected);
+      }
+      currentIndex = 0;
+      loadQuestion();
+    }
+
     function loadQuestion() {
-      const q = questions[currentIndex];
+      if (activeQuestions.length === 0) {
+        document.getElementById('subjectTag').innerText = "Notice";
+        document.getElementById('questionText').innerHTML = "<div class='empty-msg'>No questions available for this subject yet!</div>";
+        document.getElementById('optionsContainer').innerHTML = '';
+        document.getElementById('veePanel').style.display = 'none';
+        return;
+      }
+
+      const q = activeQuestions[currentIndex];
       document.getElementById('subjectTag').innerText = q.subject;
       document.getElementById('questionText').innerText = q.question;
       
@@ -118,7 +161,7 @@
       selectedOptionIndex = chosenIndex;
       totalAnswered++;
       
-      const q = questions[currentIndex];
+      const q = activeQuestions[currentIndex];
       const allBtns = document.querySelectorAll('.option-btn');
 
       if (chosenIndex === q.answerIndex) {
@@ -134,7 +177,8 @@
     }
 
     function nextQuestion() {
-      currentIndex = (currentIndex + 1) % questions.length;
+      if (activeQuestions.length === 0) return;
+      currentIndex = (currentIndex + 1) % activeQuestions.length;
       loadQuestion();
     }
 
@@ -144,7 +188,8 @@
     }
 
     function showMethod(num) {
-      const q = questions[currentIndex];
+      if (activeQuestions.length === 0) return;
+      const q = activeQuestions[currentIndex];
       const text = document.getElementById('methodText');
       
       document.getElementById('tab1').classList.remove('active');
@@ -160,7 +205,7 @@
       document.getElementById('wrongBreakdownText').innerHTML = q.wrongBreakdown;
     }
 
-    loadQuestion();
+    window.onload = initApp;
   </script>
 
 </body>
