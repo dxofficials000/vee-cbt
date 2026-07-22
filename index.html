@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DXOFFICIALS EMPIRE - Vee CBT Prep</title>
+  <style>
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #0f172a; color: #f8fafc; margin: 0; padding: 15px; }
+    .header { text-align: center; padding: 10px 0; border-bottom: 2px solid #334155; }
+    .header h1 { color: #f59e0b; margin: 0; font-size: 24px; }
+    .header p { color: #94a3b8; margin: 5px 0 0; font-size: 14px; }
+    .card { background: #1e293b; border-radius: 12px; padding: 20px; margin-top: 20px; border: 1px solid #334155; }
+    .question-title { font-size: 18px; color: #e2e8f0; margin-bottom: 15px; line-height: 1.4; }
+    .options { display: flex; flex-direction: column; gap: 10px; }
+    .option-btn { background: #334155; color: #fff; border: 1px solid #475569; padding: 12px; border-radius: 8px; font-size: 16px; text-align: left; cursor: pointer; }
+    .ask-vee-btn { background: #f59e0b; color: #0f172a; border: none; width: 100%; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: bold; margin-top: 20px; cursor: pointer; }
+    .vee-panel { display: none; background: #0284c7; border-radius: 12px; padding: 15px; margin-top: 15px; color: #fff; }
+    .vee-header { font-weight: bold; font-size: 18px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .tabs { display: flex; gap: 5px; margin-bottom: 10px; }
+    .tab-btn { background: #0369a1; color: #fff; border: none; padding: 8px 12px; border-radius: 5px; font-size: 12px; font-weight: bold; cursor: pointer; flex: 1; }
+    .tab-btn.active { background: #f59e0b; color: #0f172a; }
+    .explanation-text { background: rgba(0,0,0,0.2); padding: 12px; border-radius: 6px; font-size: 14px; line-height: 1.5; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>DXOFFICIALS EMPIRE</h1>
+    <p>Powered by Vee - AI Study Assistant</p>
+  </div>
+
+  <div class="card">
+    <div class="question-title"><b>JAMB Mathematics:</b> Solve for x if 2x + 6 = 14.</div>
+    <div class="options">
+      <button class="option-btn">A) 2</button>
+      <button class="option-btn">B) 4</button>
+      <button class="option-btn">C) 6</button>
+      <button class="option-btn">D) 8</button>
+    </div>
+
+    <button class="ask-vee-btn" onclick="toggleVee()">🤖 Ask Vee for Explanation</button>
+
+    <div class="vee-panel" id="veePanel">
+      <div class="vee-header">💡 Vee's Simplified Solution</div>
+      <div class="tabs">
+        <button class="tab-btn active" onclick="showMethod(1)">1. Shortcut</button>
+        <button class="tab-btn" onclick="showMethod(2)">2. Plain English</button>
+        <button class="tab-btn" onclick="showMethod(3)">3. Full Steps</button>
+      </div>
+      <div class="explanation-text" id="methodText">
+        <b>10-Second Shortcut:</b> Look at the options! Plug in option B (4): 2(4) + 6 = 8 + 6 = 14. It matches instantly without doing long math!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleVee() {
+      var panel = document.getElementById('veePanel');
+      panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function showMethod(num) {
+      var text = document.getElementById('methodText');
+      var btns = document.querySelectorAll('.tab-btn');
+      btns.forEach(b => b.classList.remove('active'));
+
+      if (num === 1) {
+        btns[0].classList.add('active');
+        text.innerHTML = "<b>10-Second Shortcut:</b> Look at the options! Plug in option B (4): 2(4) + 6 = 8 + 6 = 14. It matches instantly without doing long math!";
+      } else if (num === 2) {
+        btns[1].classList.add('active');
+        text.innerHTML = "<b>Plain-English Logic:</b> You have double of a mystery number, plus 6, giving 14. Take away the 6 first, leaving 8. If double your number is 8, then half of 8 is 4!";
+      } else if (num === 3) {
+        btns[2].classList.add('active');
+        text.innerHTML = "<b>Full Step-by-Step Working:</b><br>2x + 6 = 14<br>Subtract 6 from both sides: 2x = 14 - 6<br>2x = 8<br>Divide both sides by 2: x = 8 / 2<br><b>x = 4</b>";
+      }
+    }
+  </script>
+
+</body>
+</html>
