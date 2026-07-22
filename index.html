@@ -29,7 +29,7 @@
     .tab-btn { background: #0369a1; color: #fff; border: none; padding: 8px 12px; border-radius: 5px; font-size: 12px; font-weight: bold; cursor: pointer; flex: 1; }
     .tab-btn.active { background: #f59e0b; color: #0f172a; }
     .explanation-text { background: rgba(0,0,0,0.2); padding: 12px; border-radius: 6px; font-size: 14px; line-height: 1.5; }
-    .wrong-breakdown { margin-top: 12px; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 6px; font-size: 13px; line-height: 1.4; border-left: 4px solid #f59e0b; }
+    .wrong-breakdown { margin-top: 12px; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 6px; font-size: 13px; line-height: 1.5; border-left: 4px solid #f59e0b; }
   </style>
 </head>
 <body>
@@ -54,9 +54,9 @@
     <div class="vee-panel" id="veePanel">
       <div class="vee-header">💡 Vee's Simplified Solution</div>
       <div class="tabs">
-        <button class="tab-btn active" id="tab1" onclick="showMethod(1)">1. Shortcut</button>
+        <button class="tab-btn active" id="tab1" onclick="showMethod(1)">1. Speed Elimination</button>
         <button class="tab-btn" id="tab2" onclick="showMethod(2)">2. Plain English</button>
-        <button class="tab-btn" id="tab3" onclick="showMethod(3)">3. Full Steps</button>
+        <button class="tab-btn" id="tab3" onclick="showMethod(3)">3. Standard Concept</button>
       </div>
       <div class="explanation-text" id="methodText"></div>
       <div class="wrong-breakdown" id="wrongBreakdownText"></div>
@@ -66,24 +66,24 @@
   <script>
     const questions = [
       {
-        subject: "JAMB Physics",
-        question: "What is the S.I. unit of Force?",
-        options: ["A) Joule", "B) Watt", "C) Newton", "D) Pascal"],
-        answerIndex: 2,
-        m1: "<b>10-Second Shortcut:</b> Remember Isaac Newton dropped an apple due to gravity (Force). Force = Newton!",
-        m2: "<b>Plain-English Logic:</b> Force is any push or pull on an object. Sir Isaac Newton calculated this motion, so the unit was named after him.",
-        m3: "<b>Full Step-by-Step Working:</b><br>F = ma (Mass × Acceleration)<br>Mass = kg, Acceleration = m/s².<br>1 kg·m/s² = <b>1 Newton (N)</b>.",
-        wrongBreakdown: "<b>❌ Why Other Options Are Wrong:</b><br>• <b>A) Joule:</b> Unit for Energy or Work done.<br>• <b>B) Watt:</b> Unit for Power (rate of doing work).<br>• <b>D) Pascal:</b> Unit for Pressure (Force per area)."
-      },
-      {
         subject: "JAMB Chemistry",
         question: "Which of the following gases turns lime water milky?",
         options: ["A) Oxygen", "B) Carbon (IV) Oxide", "C) Hydrogen", "D) Ammonia"],
         answerIndex: 1,
-        m1: "<b>10-Second Shortcut:</b> See 'lime water milky'? Instantly pick Carbon (IV) Oxide ($CO_2$)!",
-        m2: "<b>Plain-English Logic:</b> Lime water traps carbon dioxide to form chalky white limestone powder, turning the clear liquid cloudy/milky.",
-        m3: "<b>Full Step-by-Step Working:</b><br>Ca(OH)₂ + CO₂ → CaCO₃ (white precipitate) + H₂O",
-        wrongBreakdown: "<b>❌ Why Other Options Are Wrong:</b><br>• <b>A) Oxygen:</b> Relights a glowing wooden splint.<br>• <b>C) Hydrogen:</b> Burns with a sharp 'pop' sound.<br>• <b>D) Ammonia:</b> Turns damp red litmus paper blue and has a pungent smell."
+        m1: "<b>⚡ Speed Elimination Trick:</b> Lime water is acidic/neutral, so it tests for acidic gases. Oxygen and Hydrogen are neutral gases, while Ammonia is alkaline. That leaves Carbon (IV) Oxide as the only acidic oxide here!",
+        m2: "<b>Plain-English Logic:</b> Lime water contains dissolved calcium. When Carbon (IV) Oxide gas passes through it, it reacts to form insoluble chalk powder (limestone), making the water look white like milk.",
+        m3: "<b>Standard Reaction Formula:</b><br>Ca(OH)₂ (aq) + CO₂ (g) → CaCO₃ (s) + H₂O (l)<br><i>CaCO₃ is the white solid precipitate that creates the milky appearance.</i>",
+        wrongBreakdown: "<b>❌ Why Other Options Are Wrong:</b><br>• <b>A) Oxygen:</b> Supports burning; relights a glowing wooden splint.<br>• <b>C) Hydrogen:</b> Highly flammable gas; burns with a sharp 'pop' sound.<br>• <b>D) Ammonia:</b> Alkaline gas; turns damp red litmus paper blue and has a sharp smell."
+      },
+      {
+        subject: "JAMB Physics",
+        question: "What is the S.I. unit of Force?",
+        options: ["A) Joule", "B) Watt", "C) Newton", "D) Pascal"],
+        answerIndex: 2,
+        m1: "<b>⚡ Speed Elimination Trick:</b> Think about physics formulas! F = ma. Since Force causes acceleration of mass, eliminate Joules (energy) and Watts (power). The unit named after Newton represents force directly.",
+        m2: "<b>Plain-English Logic:</b> Force is simply a push or a pull. Sir Isaac Newton calculated the laws governing pushes and pulls, so the international unit of force was named in his honor.",
+        m3: "<b>Standard Formula:</b><br>Force = Mass × Acceleration (F = ma)<br>Mass (kg) × Acceleration (m/s²) = <b>1 Newton (N)</b>.",
+        wrongBreakdown: "<b>❌ Why Other Options Are Wrong:</b><br>• <b>A) Joule:</b> S.I. unit for Energy and Work done.<br>• <b>B) Watt:</b> S.I. unit for Power (Work ÷ Time).<br>• <b>D) Pascal:</b> S.I. unit for Pressure (Force ÷ Area)."
       }
     ];
 
@@ -130,7 +130,7 @@
       }
 
       document.getElementById('scoreBoard').innerText = `Score: ${score} / ${totalAnswered}`;
-      document.getElementById('veePanel').style.display = 'block'; // Automatically reveal Vee's breakdown when answered!
+      document.getElementById('veePanel').style.display = 'block';
     }
 
     function nextQuestion() {
