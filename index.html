@@ -11,10 +11,17 @@
     .header h1 { color: #f59e0b; margin: 0; font-size: 24px; }
     .header p { color: #94a3b8; margin: 5px 0 0; font-size: 14px; }
     .card { background: #1e293b; border-radius: 12px; padding: 20px; margin-top: 20px; border: 1px solid #334155; }
+    .subject-tag { color: #f59e0b; font-weight: bold; font-size: 14px; text-transform: uppercase; margin-bottom: 8px; }
     .question-title { font-size: 18px; color: #e2e8f0; margin-bottom: 15px; line-height: 1.4; }
     .options { display: flex; flex-direction: column; gap: 10px; }
-    .option-btn { background: #334155; color: #fff; border: 1px solid #475569; padding: 12px; border-radius: 8px; font-size: 16px; text-align: left; cursor: pointer; }
-    .ask-vee-btn { background: #f59e0b; color: #0f172a; border: none; width: 100%; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: bold; margin-top: 20px; cursor: pointer; }
+    .option-btn { background: #334155; color: #fff; border: 1px solid #475569; padding: 12px; border-radius: 8px; font-size: 16px; text-align: left; cursor: pointer; transition: 0.2s; }
+    .option-btn.correct { background: #16a34a !important; border-color: #22c55e !important; }
+    .option-btn.wrong { background: #dc2626 !important; border-color: #ef4444 !important; }
+    
+    .action-row { display: flex; gap: 10px; margin-top: 20px; }
+    .ask-vee-btn { background: #f59e0b; color: #0f172a; border: none; padding: 14px; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; flex: 1; }
+    .next-btn { background: #3b82f6; color: #fff; border: none; padding: 14px; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; }
+    
     .vee-panel { display: none; background: #0284c7; border-radius: 12px; padding: 15px; margin-top: 15px; color: #fff; }
     .vee-header { font-weight: bold; font-size: 18px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
     .tabs { display: flex; gap: 5px; margin-bottom: 10px; }
@@ -31,51 +38,124 @@
   </div>
 
   <div class="card">
-    <div class="question-title"><b>JAMB Mathematics:</b> Solve for x if 2x + 6 = 14.</div>
-    <div class="options">
-      <button class="option-btn">A) 2</button>
-      <button class="option-btn">B) 4</button>
-      <button class="option-btn">C) 6</button>
-      <button class="option-btn">D) 8</button>
-    </div>
+    <div class="subject-tag" id="subjectTag">JAMB Mathematics</div>
+    <div class="question-title" id="questionText">Loading question...</div>
+    <div class="options" id="optionsContainer"></div>
 
-    <button class="ask-vee-btn" onclick="toggleVee()">🤖 Ask Vee for Explanation</button>
+    <div class="action-row">
+      <button class="ask-vee-btn" onclick="toggleVee()">🤖 Ask Vee for Explanation</button>
+      <button class="next-btn" onclick="nextQuestion()">Next ➡️</button>
+    </div>
 
     <div class="vee-panel" id="veePanel">
       <div class="vee-header">💡 Vee's Simplified Solution</div>
       <div class="tabs">
-        <button class="tab-btn active" onclick="showMethod(1)">1. Shortcut</button>
-        <button class="tab-btn" onclick="showMethod(2)">2. Plain English</button>
-        <button class="tab-btn" onclick="showMethod(3)">3. Full Steps</button>
+        <button class="tab-btn active" id="tab1" onclick="showMethod(1)">1. Shortcut</button>
+        <button class="tab-btn" id="tab2" onclick="showMethod(2)">2. Plain English</button>
+        <button class="tab-btn" id="tab3" onclick="showMethod(3)">3. Full Steps</button>
       </div>
-      <div class="explanation-text" id="methodText">
-        <b>10-Second Shortcut:</b> Look at the options! Plug in option B (4): 2(4) + 6 = 8 + 6 = 14. It matches instantly without doing long math!
-      </div>
+      <div class="explanation-text" id="methodText"></div>
     </div>
   </div>
 
   <script>
+    // Database of questions with Vee's 3 methods
+    const questions = [
+      {
+        subject: "JAMB Mathematics",
+        question: "Solve for x if 2x + 6 = 14.",
+        options: ["A) 2", "B) 4", "C) 6", "D) 8"],
+        answerIndex: 1, // B is correct
+        m1: "<b>10-Second Shortcut:</b> Test option B (4): 2(4) + 6 = 8 + 6 = 14. It matches instantly without long algebra!",
+        m2: "<b>Plain-English Logic:</b> Double a number plus 6 gives 14. Take away 6 to get 8. If double the number is 8, the number is 4!",
+        m3: "<b>Full Step-by-Step Working:</b><br>2x + 6 = 14<br>2x = 14 - 6<br>2x = 8<br>x = 8 / 2<br><b>x = 4</b>"
+      },
+      {
+        subject: "JAMB Physics",
+        question: "What is the S.I. unit of Force?",
+        options: ["A) Joule", "B) Watt", "C) Newton", "D) Pascal"],
+        answerIndex: 2, // C is correct
+        m1: "<b>10-Second Shortcut:</b> Remember Isaac Newton dropped an apple due to gravity (Force). Force = Newton!",
+        m2: "<b>Plain-English Logic:</b> Energy is measured in Joules, Power in Watts, and Pressure in Pascals. Push/Pull (Force) is measured in Newtons.",
+        m3: "<b>Full Step-by-Step Working:</b><br>Force = Mass × Acceleration (F = ma)<br>Mass is in kg, Acceleration in m/s².<br>1 kg·m/s² is defined as <b>1 Newton (N)</b>."
+      },
+      {
+        subject: "JAMB Chemistry",
+        question: "Which of the following gas turning lime water milky?",
+        options: ["A) Oxygen", "B) Carbon (IV) Oxide", "C) Hydrogen", "D) Ammonia"],
+        answerIndex: 1, // B is correct
+        m1: "<b>10-Second Shortcut:</b> Whenever you see 'lime water milky' in JAMB Chemistry, automatically select Carbon Dioxide ($CO_2$)!",
+        m2: "<b>Plain-English Logic:</b> Lime water reacts with trapped carbon dioxide gas to form chalky white limestone powder, making the clear water look like milk.",
+        m3: "<b>Full Step-by-Step Working:</b><br>Calcium Hydroxide + Carbon Dioxide → Calcium Carbonate + Water<br>Ca(OH)₂ + CO₂ → CaCO₃ (white precipitate) + H₂O"
+      }
+    ];
+
+    let currentIndex = 0;
+    let selectedOptionIndex = null;
+
+    function loadQuestion() {
+      const q = questions[currentIndex];
+      document.getElementById('subjectTag').innerText = q.subject;
+      document.getElementById('questionText').innerText = q.question;
+      
+      const container = document.getElementById('optionsContainer');
+      container.innerHTML = '';
+      selectedOptionIndex = null;
+      document.getElementById('veePanel').style.display = 'none';
+
+      q.options.forEach((optText, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = optText;
+        btn.onclick = () => checkAnswer(index, btn);
+        container.appendChild(btn);
+      });
+
+      showMethod(1);
+    }
+
+    function checkAnswer(chosenIndex, btnElement) {
+      if (selectedOptionIndex !== null) return; // Prevent double clicking
+      selectedOptionIndex = chosenIndex;
+      
+      const q = questions[currentIndex];
+      const allBtns = document.querySelectorAll('.option-btn');
+
+      if (chosenIndex === q.answerIndex) {
+        btnElement.classList.add('correct');
+      } else {
+        btnElement.classList.add('wrong');
+        allBtns[q.answerIndex].classList.add('correct'); // Highlight the right one
+      }
+    }
+
+    function nextQuestion() {
+      currentIndex = (currentIndex + 1) % questions.length;
+      loadQuestion();
+    }
+
     function toggleVee() {
       var panel = document.getElementById('veePanel');
       panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
     }
 
     function showMethod(num) {
-      var text = document.getElementById('methodText');
-      var btns = document.querySelectorAll('.tab-btn');
-      btns.forEach(b => b.classList.remove('active'));
+      const q = questions[currentIndex];
+      const text = document.getElementById('methodText');
+      
+      document.getElementById('tab1').classList.remove('active');
+      document.getElementById('tab2').classList.remove('active');
+      document.getElementById('tab3').classList.remove('active');
 
-      if (num === 1) {
-        btns[0].classList.add('active');
-        text.innerHTML = "<b>10-Second Shortcut:</b> Look at the options! Plug in option B (4): 2(4) + 6 = 8 + 6 = 14. It matches instantly without doing long math!";
-      } else if (num === 2) {
-        btns[1].classList.add('active');
-        text.innerHTML = "<b>Plain-English Logic:</b> You have double of a mystery number, plus 6, giving 14. Take away the 6 first, leaving 8. If double your number is 8, then half of 8 is 4!";
-      } else if (num === 3) {
-        btns[2].classList.add('active');
-        text.innerHTML = "<b>Full Step-by-Step Working:</b><br>2x + 6 = 14<br>Subtract 6 from both sides: 2x = 14 - 6<br>2x = 8<br>Divide both sides by 2: x = 8 / 2<br><b>x = 4</b>";
-      }
+      document.getElementById('tab' + num).classList.add('active');
+
+      if (num === 1) text.innerHTML = q.m1;
+      if (num === 2) text.innerHTML = q.m2;
+      if (num === 3) text.innerHTML = q.m3;
     }
+
+    // Initial load
+    loadQuestion();
   </script>
 
 </body>
