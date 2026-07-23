@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COGNITO - AI Powered Learning App</title>
+  
+  <meta name="theme-color" content="#6b21a8">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Cognito">
+
+  <style>
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #f8fafc; color: #1e1b4b; margin: 0; padding: 15px; padding-bottom: 90px; }
+    
+    /* Vibrant Purple Header */
+    .header { 
+      text-align: center; 
+      padding: 20px 10px; 
+      background: linear-gradient(135deg, #6b21a8 0%, #7e22ce 50%, #9333ea 100%);
+      border-radius: 16px; 
+      margin-bottom: 20px;
+      box-shadow: 0 8px 20px rgba(107, 33, 168, 0.25);
+      color: #ffffff;
+    }
+    
+    .logo-text {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      margin: 0;
+      color: #ffffff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .header p { 
+      color: #f3e8ff; 
+      margin: 6px 0 0; 
+      font-size: 13px; 
+      font-weight: 600; 
+      letter-spacing: 0.5px;
+    }
+    
+    /* Bottom Modern Navigation Bar */
+    .nav-tabs { 
+      position: fixed; 
+      bottom: 0; 
+      left: 0; 
+      right: 0; 
+      display: flex; 
+      background: rgba(255, 255, 255, 0.95); 
+      backdrop-filter: blur(10px);
+      padding: 10px 12px; 
+      border-top: 2px solid #e9d5ff; 
+      gap: 6px; 
+      z-index: 1000; 
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .nav-btn { 
+      flex: 1; 
+      background: #f3e8ff; 
+      color: #6b21a8; 
+      border: 1px solid #d8b4fe; 
+      padding: 10px 2px; 
+      border-radius: 10px; 
+      font-size: 11px; 
+      font-weight: 700; 
+      cursor: pointer; 
+      text-align: center; 
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn.active { 
+      background: linear-gradient(135deg, #7e22ce, #9333ea); 
+      color: #ffffff; 
+      font-weight: 800; 
+      border-color: #7e22ce; 
+      box-shadow: 0 4px 12px rgba(126, 34, 206, 0.3);
+    }
+
+    /* Page Views */
+    .page-view { display: none; }
+    .page-view.active { display: block; }
+
+    /* Myschool Inspired Home Elements */
+    .banner-card {
+      background: linear-gradient(135deg, #faf5ff, #f3e8ff);
+      border: 1px solid #d8b4fe;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 12px rgba(107, 33, 168, 0.05);
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #581c87;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    
+    .menu-card { 
+      background: #ffffff; 
+      border: 1px solid #e9d5ff; 
+      border-radius: 14px; 
+      padding: 18px 12px; 
+      text-align: center; 
+      cursor: pointer; 
+      transition: all 0.2s ease; 
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+
+    .menu-card:hover { 
+      border-color: #9333ea; 
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(147, 51, 234, 0.12);
+    }
+
+    .menu-card h3 { color: #6b21a8; margin: 8px 0 2px 0; font-size: 14px; font-weight: 700; }
+    .menu-card p { color: #64748b; margin: 0; font-size: 11px; }
+
+    /* Inputs & Custom Timer Controls */
+    .filter-card { 
+      background: #ffffff; 
+      padding: 16px; 
+      border-radius: 14px; 
+      border: 1px solid #e9d5ff; 
+      margin-bottom: 15px; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 12px; 
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .filter-row { display: flex; gap: 10px; }
+    
+    .select-box, .input-box { 
+      background: #faf5ff; 
+      color: #581c87; 
+      border: 1px solid #c084fc; 
+      padding: 11px; 
+      border-radius: 10px; 
+      font-weight: 700; 
+      font-size: 13px; 
+      flex: 1; 
+      outline: none; 
+    }
+    
+    .timer-setup { 
+      background: #f3e8ff; 
+      padding: 12px; 
+      border-radius: 10px; 
+      border: 1px solid #d8b4fe; 
+    }
+
+    .timer-setup label { color: #6b21a8; font-size: 12px; font-weight: bold; display: block; margin-bottom: 6px; }
+    .timer-inputs { display: flex; gap: 10px; align-items: center; }
+
+    /* Info Bar with Pause Function */
+    .info-bar { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      background: #ffffff; 
+      padding: 10px 14px; 
+      border-radius: 12px; 
+      border: 1px solid #d8b4fe; 
+      margin-bottom: 15px; 
+      font-weight: bold; 
+      font-size: 13px; 
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .timer { color: #dc2626; display: flex; align-items: center; gap: 8px; }
+    .score-board { color: #6b21a8; }
+    
+    .pause-btn {
+      background: #f3e8ff;
+      color: #6b21a8;
+      border: 1px solid #c084fc;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Questions & Options */
+    .card { 
+      background: #ffffff; 
+      border-radius: 14px; 
+      padding: 20px; 
+      border: 1px solid #e9d5ff; 
+      box-shadow: 0 4px 15px rgba(107, 33, 168, 0.05); 
+    }
+
+    .subject-tag { color: #7e22ce; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
+    .question-title { font-size: 15px; color: #1e1b4b; margin-bottom: 18px; line-height: 1.5; font-weight: 600; }
+    
+    .options { display: flex; flex-direction: column; gap: 10px; }
+    .option-btn { background: #faf5ff; color: #334155; border: 1px solid #e9d5ff; padding: 14px; border-radius: 10px; font-size: 14px; text-align: left; cursor: pointer; transition: 0.2s; font-weight: 500; }
+    .option-btn:hover { border-color: #a855f7; background: #f3e8ff; }
+    .option-btn.correct { background: #dcfce7 !important; border-color: #22c55e !important; color: #15803d !important; font-weight: bold; }
+    .option-btn.wrong { background: #fee2e2 !important; border-color: #ef4444 !important; color: #b91c1c !important; font-weight: bold; }
+    
+    .action-btn { 
+      background: linear-gradient(135deg, #7e22ce, #9333ea); 
+      color: #ffffff; 
+      border: none; 
+      padding: 13px; 
+      border-radius: 10px; 
+      font-weight: bold; 
+      width: 100%; 
+      cursor: pointer; 
+      font-size: 14px; 
+      margin-top: 12px; 
+      box-shadow: 0 4px 12px rgba(126, 34, 206, 0.25);
+    }
+
+    /* Vee Chat Engine */
+    .chat-box { 
+      background: #ffffff; 
+      border-radius: 14px; 
+      padding: 15px; 
+      border: 1px solid #e9d5ff; 
+      min-height: 420px; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: space-between; 
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    }
+
+    .chat-messages { display: flex; flex-direction: column; gap: 12px; max-height: 360px; overflow-y: auto; padding-right: 4px; }
+    .msg { padding: 12px 15px; border-radius: 12px; font-size: 13px; line-height: 1.5; max-width: 88%; white-space: pre-line; }
+    .msg.vee { background: #f3e8ff; color: #4c1d95; border: 1px solid #d8b4fe; align-self: flex-start; }
+    .msg.user { background: #7e22ce; color: #ffffff; font-weight: 600; align-self: flex-end; }
+    .chat-input-row { display: flex; gap: 8px; margin-top: 15px; }
+    .chat-input { flex: 1; background: #faf5ff; border: 1px solid #c084fc; color: #1e1b4b; padding: 12px; border-radius: 10px; font-size: 13px; outline: none; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1 class="logo-text">COGNITO</h1>
+    <p>Powered by Vee • AI Study Assistant</p>
+  </div>
+
+  <div id="homeView" class="page-view active">
+    <div class="banner-card">
+      <h2 style="color: #6b21a8; margin: 0 0 6px 0; font-size: 18px;">Welcome to Cognito! 👋</h2>
+      <p style="color: #475569; margin: 0; font-size: 13px; line-height: 1.4;">Select a learning module to start practice tests, full CBT exams, or ask Vee any study question.</p>
+    </div>
+
+    <div class="section-title">⚡ Quick Study Modules</div>
+    <div class="grid-container">
+      <div class="menu-card" onclick="openPage('testView')">
+        <div style="font-size: 26px;">📝</div>
+        <h3>CBT Test</h3>
+        <p>Practice with pause timer</p>
+      </div>
+
+      <div class="menu-card" onclick="openPage('examView')">
+        <div style="font-size: 26px;">⏱️</div>
+        <h3>Full Exam</h3>
+        <p>Timed exam simulator</p>
+      </div>
+
+      <div class="menu-card" onclick="openPage('chatView')">
+        <div style="font-size: 26px;">🤖</div>
+        <h3>Chat Vee AI</h3>
+        <p>3-step problem solver</p>
+      </div>
+
+      <div class="menu-card" onclick="openPage('specialView')">
+        <div style="font-size: 26px;">👑</div>
+        <h3>Special Hub</h3>
+        <p>Mock trials & syllabus</p>
+      </div>
+    </div>
+
+    <div class="section-title">📚 Exam Resources</div>
+    <div class="grid-container">
+      <div class="menu-card" onclick="openPage('testView')">
+        <div style="font-size: 24px;">📖</div>
+        <h3>JAMB Prep</h3>
+        <p>Past question practice</p>
+      </div>
+      <div class="menu-card" onclick="openPage('testView')">
+        <div style="font-size: 24px;">🎓</div>
+        <h3>WAEC / NECO</h3>
+        <p>Standard past tests</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="testView" class="page-view">
+    <div class="filter-card">
+      <div class="filter-row">
+        <select class="select-box" id="testExamBody" onchange="applyTestFilter()">
+          <option value="ALL">All Exam Bodies</option>
+          <option value="JAMB">JAMB</option>
+          <option value="WAEC">WAEC</option>
+          <option value="NECO">NECO</option>
+          <option value="IGCSE">IGCSE</option>
+        </select>
+        <select class="select-box" id="testDepartment" onchange="updateSubjects('testDepartment', 'testSubject')">
+          <option value="ALL">All Departments</option>
+          <option value="Science">Science</option>
+          <option value="Arts">Arts</option>
+          <option value="Commercial">Commercial</option>
+        </select>
+      </div>
+      <select class="select-box" id="testSubject" onchange="applyTestFilter()">
+        <option value="ALL">All Subjects</option>
+      </select>
+
+      <div class="timer-setup">
+        <label>⏱️ Set Custom Test Duration:</label>
+        <div class="timer-inputs">
+          <input type="number" class="input-box" id="testTimerHours" placeholder="Hours" min="0" max="5" value="0">
+          <input type="number" class="input-box" id="testTimerMins" placeholder="Minutes" min="1" max="59" value="20">
+        </div>
+      </div>
+      <button class="action-btn" onclick="startTestWithTimer()">🚀 Start Practice Test</button>
+    </div>
+
+    <div class="info-bar" id="testInfoBar" style="display:none;">
+      <span class="timer">
+        <span id="testTimerDisplay">⏳ 00:00</span>
+        <button class="pause-btn" id="testPauseBtn" onclick="toggleTestTimer()">Pause</button>
+      </span>
+      <span class="score-board" id="testScore">Score: 0 / 0</span>
+    </div>
+
+    <div class="card" id="testCard" style="display:none;">
+      <div class="subject-tag" id="testSubjectTag">JAMB Prep</div>
+      <div class="question-title" id="testQuestionText">Select options above and click Start.</div>
+      <div class="options" id="testOptionsContainer"></div>
+
+      <button class="action-btn" style="margin-top:15px;" onclick="nextTestQuestion()">Next Question ➡️</button>
+    </div>
+  </div>
+
+  <div id="examView" class="page-view">
+    <div class="filter-card">
+      <div class="filter-row">
+        <select class="select-box" id="examBody">
+          <option value="JAMB">JAMB</option>
+          <option value="WAEC">WAEC</option>
+          <option value="NECO">NECO</option>
+          <option value="IGCSE">IGCSE</option>
+        </select>
+        <select class="select-box" id="examDepartment" onchange="updateSubjects('examDepartment', 'examSubject')">
+          <option value="Science">Science</option>
+          <option value="Arts">Arts</option>
+          <option value="Commercial">Commercial</option>
+        </select>
+      </div>
+      <select class="select-box" id="examSubject">
+        </select>
+
+      <div class="timer-setup">
+        <label>⏱️ Set Custom Exam Duration:</label>
+        <div class="timer-inputs">
+          <input type="number" class="input-box" id="examTimerHours" placeholder="Hours" min="0" max="5" value="1">
+          <input type="number" class="input-box" id="examTimerMins" placeholder="Minutes" min="0" max="59" value="30">
+        </div>
+      </div>
+
+      <button class="action-btn" onclick="startExamTimer()">🚀 Start Timed Exam Trial</button>
+    </div>
+
+    <div class="info-bar" id="examInfoBar" style="display:none;">
+      <span class="timer">
+        <span id="examTimerDisplay">⏳ 00:00</span>
+        <button class="pause-btn" id="examPauseBtn" onclick="toggleExamTimer()">Pause</button>
+      </span>
+      <span class="score-board" id="examScore">Score: 0 / 0</span>
+    </div>
+
+    <div class="card" id="examCard" style="display:none;">
+      <div class="subject-tag" id="examSubjectTag">Exam Mode</div>
+      <div class="question-title" id="examQuestionText">Press Start to begin!</div>
+      <div class="options" id="examOptionsContainer"></div>
+
+      <button class="action-btn" style="margin-top:15px;" onclick="nextExamQuestion()">Submit & Next Question ➡️</button>
+    </div>
+  </div>
+
+  <div id="chatView" class="page-view">
+    <div class="chat-box">
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg vee">Hello! I am <b>Vee</b>, your AI study assistant. Ask me any question, equation, or topic and I will break it down into 3 easy solving steps for you!</div>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" class="chat-input" id="userInput" placeholder="Ask Vee any question..." onkeypress="if(event.key==='Enter') sendToVee()">
+        <button class="action-btn" style="width: auto; padding: 12px 18px; margin: 0;" onclick="sendToVee()">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="specialView" class="page-view">
+    <div class="card" style="margin-bottom: 15px;">
+      <h3 style="color:#6b21a8; margin:0 0 8px 0; font-size: 17px;">👑 National CBT Speed Trials</h3>
+      <p style="color:#475569; font-size:13px; line-height: 1.5;">Simulate national mock trials under real exam conditions.</p>
+      <button class="action-btn" onclick="alert('National Speed Trial feature coming soon!')">Explore Feature</button>
+    </div>
+
+    <div class="card">
+      <h3 style="color:#6b21a8; margin:0 0 8px 0; font-size: 17px;">📚 Theory & Essay Masterclass</h3>
+      <p style="color:#475569; font-size:13px; line-height: 1.5;">Access comprehensive essay guides and WAEC marking schemes.</p>
+      <button class="action-btn" onclick="alert('Theory Masterclass feature coming soon!')">Explore Feature</button>
+    </div>
+  </div>
+
+  <div class="nav-tabs">
+    <button class="nav-btn active" id="btn-homeView" onclick="openPage('homeView')">🏠 Home</button>
+    <button class="nav-btn" id="btn-testView" onclick="openPage('testView')">📝 Test</button>
+    <button class="nav-btn" id="btn-examView" onclick="openPage('examView')">⏱️ Exam</button>
+    <button class="nav-btn" id="btn-chatView" onclick="openPage('chatView')">🤖 Vee AI</button>
+    <button class="nav-btn" id="btn-specialView" onclick="openPage('specialView')">👑 Special</button>
+  </div>
+
+  <script src="questions.js"></script>
+
+  <script>
+    const subjectsMap = {
+      Science: ["Mathematics", "Physics", "Chemistry", "Biology", "English Language"],
+      Arts: ["English Language", "Literature-in-English", "Government", "CRS/IRS", "Mathematics"],
+      Commercial: ["Mathematics", "English Language", "Economics", "Commerce", "Financial Accounting"]
+    };
+
+    let activeTestQuestions = [];
+    let testIndex = 0;
+    let testScoreCount = 0;
+    let testTotalCount = 0;
+    let testTimerInterval = null;
+    let testSecondsLeft = 0;
+    let isTestPaused = false;
+
+    let activeExamQuestions = [];
+    let examIndex = 0;
+    let examScoreCount = 0;
+    let examTimerInterval = null;
+    let examSecondsLeft = 0;
+    let isExamPaused = false;
+
+    function openPage(pageId) {
+      document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+      
+      document.getElementById(pageId).classList.add('active');
+      const btn = document.getElementById('btn-' + pageId);
+      if(btn) btn.classList.add('active');
+      window.scrollTo(0,0);
+    }
+
+    function updateSubjects(deptSelectId, subjectSelectId) {
+      const dept = document.getElementById(deptSelectId).value;
+      const subSelect = document.getElementById(subjectSelectId);
+      subSelect.innerHTML = '<option value="ALL">All Subjects</option>';
+
+      if (subjectsMap[dept]) {
+        subjectsMap[dept].forEach(sub => {
+          const opt = document.createElement('option');
+          opt.value = sub;
+          opt.innerText = sub;
+          subSelect.appendChild(opt);
+        });
+      }
+    }
+
+    function initApp() {
+      updateSubjects('testDepartment', 'testSubject');
+      updateSubjects('examDepartment', 'examSubject');
+    }
+
+    // --- TEST MODE WITH PAUSE TIMER ---
+    function applyTestFilter() {
+      if (typeof questionBank === 'undefined') return;
+      const body = document.getElementById('testExamBody').value;
+      const sub = document.getElementById('testSubject').value;
+
+      activeTestQuestions = questionBank.filter(q => {
+        const matchBody = (body === 'ALL' || q.subject.includes(body));
+        const matchSub = (sub === 'ALL' || q.subject.includes(sub));
+        return matchBody && matchSub;
+      });
+      testIndex = 0;
+    }
+
+    function startTestWithTimer() {
+      applyTestFilter();
+      if (activeTestQuestions.length === 0) {
+        alert("No questions found for this selection!");
+        return;
+      }
+
+      const hrs = parseInt(document.getElementById('testTimerHours').value) || 0;
+      const mins = parseInt(document.getElementById('testTimerMins').value) || 0;
+      testSecondsLeft = (hrs * 3600) + (mins * 60);
+
+      if (testSecondsLeft <= 0) {
+        alert("Please set a valid timer duration!");
+        return;
+      }
+
+      document.getElementById('testInfoBar').style.display = 'flex';
+      document.getElementById('testCard').style.display = 'block';
+
+      testIndex = 0;
+      testScoreCount = 0;
+      testTotalCount = 0;
+      isTestPaused = false;
+      document.getElementById('testPauseBtn').innerText = 'Pause';
+      loadTestQuestion();
+
+      clearInterval(testTimerInterval);
+      testTimerInterval = setInterval(runTestTimer, 1000);
+    }
+
+    function runTestTimer() {
+      if (isTestPaused) return;
+
+      let h = Math.floor(testSecondsLeft / 3600);
+      let m = Math.floor((testSecondsLeft % 3600) / 60);
+      let s = testSecondsLeft % 60;
+      
+      document.getElementById('testTimerDisplay').innerText = `⏳ ${h > 0 ? h + ':' : ''}${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+      
+      if (testSecondsLeft <= 0) {
+        clearInterval(testTimerInterval);
+        alert(`⏰ Time Expired! Your Test Score: ${testScoreCount} / ${testTotalCount}`);
+      }
+      testSecondsLeft--;
+    }
+
+    function toggleTestTimer() {
+      isTestPaused = !isTestPaused;
+      document.getElementById('testPauseBtn').innerText = isTestPaused ? 'Resume' : 'Pause';
+    }
+
+    function loadTestQuestion() {
+      const q = activeTestQuestions[testIndex];
+      document.getElementById('testSubjectTag').innerText = q.subject;
+      document.getElementById('testQuestionText').innerText = q.question;
+      
+      const container = document.getElementById('testOptionsContainer');
+      container.innerHTML = '';
+
+      q.options.forEach((optText, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = optText;
+        btn.onclick = () => checkTestAnswer(index, btn);
+        container.appendChild(btn);
+      });
+    }
+
+    function checkTestAnswer(chosenIndex, btnElement) {
+      const q = activeTestQuestions[testIndex];
+      const allBtns = document.querySelectorAll('#testOptionsContainer .option-btn');
+      
+      testTotalCount++;
+      if (chosenIndex === q.answerIndex) {
+        btnElement.classList.add('correct');
+        testScoreCount++;
+      } else {
+        btnElement.classList.add('wrong');
+        allBtns[q.answerIndex].classList.add('correct');
+      }
+      document.getElementById('testScore').innerText = `Score: ${testScoreCount} / ${testTotalCount}`;
+    }
+
+    function nextTestQuestion() {
+      if (activeTestQuestions.length === 0) return;
+      testIndex = (testIndex + 1) % activeTestQuestions.length;
+      loadTestQuestion();
+    }
+
+    // --- EXAM MODE WITH PAUSE TIMER ---
+    function startExamTimer() {
+      const body = document.getElementById('examBody').value;
+      const sub = document.getElementById('examSubject').value;
+
+      activeExamQuestions = questionBank.filter(q => {
+        const matchBody = q.subject.includes(body);
+        const matchSub = (sub === 'ALL' || q.subject.includes(sub));
+        return matchBody && matchSub;
+      });
+
+      if (activeExamQuestions.length === 0) {
+        alert("No exam questions found for this configuration!");
+        return;
+      }
+
+      const hrs = parseInt(document.getElementById('examTimerHours').value) || 0;
+      const mins = parseInt(document.getElementById('examTimerMins').value) || 0;
+      examSecondsLeft = (hrs * 3600) + (mins * 60);
+
+      if (examSecondsLeft <= 0) {
+        alert("Please set a valid timer duration!");
+        return;
+      }
+
+      document.getElementById('examInfoBar').style.display = 'flex';
+      document.getElementById('examCard').style.display = 'block';
+
+      examIndex = 0;
+      examScoreCount = 0;
+      isExamPaused = false;
+      document.getElementById('examPauseBtn').innerText = 'Pause';
+      loadExamQuestion();
+
+      clearInterval(examTimerInterval);
+      examTimerInterval = setInterval(runExamTimer, 1000);
+    }
+
+    function runExamTimer() {
+      if (isExamPaused) return;
+
+      let h = Math.floor(examSecondsLeft / 3600);
+      let m = Math.floor((examSecondsLeft % 3600) / 60);
+      let s = examSecondsLeft % 60;
+      
+      document.getElementById('examTimerDisplay').innerText = `⏳ ${h > 0 ? h + ':' : ''}${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+      
+      if (examSecondsLeft <= 0) {
+        clearInterval(examTimerInterval);
+        alert(`⏰ Time Expired! Final Exam Score: ${examScoreCount} / ${activeExamQuestions.length}`);
+      }
+      examSecondsLeft--;
+    }
+
+    function toggleExamTimer() {
+      isExamPaused = !isExamPaused;
+      document.getElementById('examPauseBtn').innerText = isExamPaused ? 'Resume' : 'Pause';
+    }
+
+    function loadExamQuestion() {
+      const q = activeExamQuestions[examIndex];
+      document.getElementById('examSubjectTag').innerText = q.subject;
+      document.getElementById('examQuestionText').innerText = q.question;
+
+      const container = document.getElementById('examOptionsContainer');
+      container.innerHTML = '';
+
+      q.options.forEach((optText, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = optText;
+        btn.onclick = () => {
+          document.querySelectorAll('#examOptionsContainer .option-btn').forEach(b => b.style.borderColor = '#e9d5ff');
+          btn.style.borderColor = '#7e22ce';
+          btn.dataset.selected = index;
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function nextExamQuestion() {
+      const selectedBtn = document.querySelector('#examOptionsContainer .option-btn[data-selected]');
+      if (selectedBtn) {
+        const chosen = parseInt(selectedBtn.dataset.selected);
+        if (chosen === activeExamQuestions[examIndex].answerIndex) {
+          examScoreCount++;
+        }
+      }
+      
+      examIndex++;
+      if (examIndex < activeExamQuestions.length) {
+        loadExamQuestion();
+      } else {
+        clearInterval(examTimerInterval);
+        alert(`🎉 Exam Completed! Final Score: ${examScoreCount} / ${activeExamQuestions.length}`);
+      }
+    }
+
+    // --- RESPONSIVE VEE AI ENGINE (3-STEP SOLUTIONS) ---
+    async function sendToVee() {
+      const input = document.getElementById('userInput');
+      const val = input.value.trim();
+      if (!val) return;
+
+      const chatBox = document.getElementById('chatMessages');
+      
+      const userMsg = document.createElement('div');
+      userMsg.className = 'msg user';
+      userMsg.innerText = val;
+      chatBox.appendChild(userMsg);
+
+      input.value = '';
+
+      const veeMsg = document.createElement('div');
+      veeMsg.className = 'msg vee';
+      veeMsg.innerText = "Vee is generating 3 solving steps...";
+      chatBox.appendChild(veeMsg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      try {
+        const prompt = `You are Vee, a smart academic AI assistant on Cognito. Provide a full answer to the following question structured in 3 clear sections:
+1. ⚡ Fast Shortcut / Elimination Trick
+2. 🗣️ Simple Plain English Concept
+3. 📚 Standard Step-by-Step Solution
+
+Question: ${val}`;
+
+        const response = await fetch("https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ inputs: prompt })
+        });
+        
+        const data = await response.json();
+        if (data && data[0] && data[0].generated_text) {
+          let reply = data[0].generated_text.replace(/You are Vee.*Question: .*\n\n/s, '');
+          veeMsg.innerText = reply;
+        } else {
+          veeMsg.innerText = `💡 Vee 3-Step Solution for "${val}":\n\n1. ⚡ Fast Shortcut: Identify key terms and apply direct elimination rules.\n2. 🗣️ Plain English: Break down core definitions in simple terms.\n3. 📚 Detailed Steps: Apply core formulas or rules to get the accurate answer.`;
+        }
+      } catch (err) {
+        veeMsg.innerText = `💡 Vee 3-Step Solution for "${val}":\n\n1. ⚡ Fast Shortcut: Look for key terms and apply direct elimination rules.\n2. 🗣️ Plain English: Simplify core definitions in easy-to-understand terms.\n3. 📚 Detailed Steps: Solve step-by-step using standard formulas and rules.`;
+      }
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    window.onload = initApp;
+  </script>
+
+</body>
+</html>
