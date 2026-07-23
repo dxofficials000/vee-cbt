@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>COGNITO — Smart AI Study Engine</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app-container">
+
+    <header class="top-header">
+      <h1 class="brand-title">COGNITO</h1>
+      <p class="brand-subtitle">Powered by Vee • Smart AI Study Engine</p>
+    </header>
+
+    <main class="main-workspace">
+
+      <section id="homeTab" class="tab-panel">
+        <div class="welcome-card">
+          <h2>Welcome back to Cognito 👋</h2>
+          <p>Choose a study module below or start a session with Vee to review your subjects.</p>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <i class="fa-solid fa-fire"></i>
+              <span id="streakCount">0 Days</span>
+              <small>Study Streak</small>
+            </div>
+            <div class="stat-card">
+              <i class="fa-solid fa-circle-check"></i>
+              <span id="answeredCount">0</span>
+              <small>Questions Solved</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="testTab" class="tab-panel">
+        <div class="module-card">
+          <h2>📝 Practice Test Mode</h2>
+          <div class="filter-controls">
+            <select id="testSubjectSelect" class="custom-select">
+              <option value="ALL">All Subjects</option>
+              <option value="JAMB Mathematics">Mathematics</option>
+              <option value="WAEC Physics">Physics</option>
+              <option value="WAEC Chemistry">Chemistry</option>
+              <option value="JAMB English">English Language</option>
+              <option value="WAEC Biology">Biology</option>
+              <option value="NECO Economics">Economics</option>
+            </select>
+            <button class="action-btn" id="startTestBtn">Start Practice</button>
+          </div>
+        </div>
+        
+        <div id="testWorkspace" class="test-workspace"></div>
+      </section>
+
+      <section id="examTab" class="tab-panel">
+        <div class="module-card">
+          <h2>⏱️ Timed CBT Exam Simulator</h2>
+          <p>Simulate official exam conditions with countdown timers and scoring.</p>
+          <button class="action-btn" id="startExamBtn">Begin Timed Session</button>
+        </div>
+        <div id="examWorkspace" class="exam-workspace"></div>
+      </section>
+
+      <section id="veeTab" class="tab-panel active">
+        <div class="chat-card">
+          <div class="chat-header">
+            <i class="fa-solid fa-robot"></i>
+            <span>Ask Vee Anything</span>
+          </div>
+          
+          <div class="chat-box" id="chatContainer">
+            <div class="message vee-message">
+              Hello! I'm Vee. Ask me step-by-step math problems, literature themes, or any concept you want to master!
+            </div>
+          </div>
+
+          <div class="chat-input-bar">
+            <input type="text" id="promptInput" placeholder="Search or ask Vee anything..." autocomplete="off">
+            <button id="sendBtn" class="send-btn">Search</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="specialTab" class="tab-panel">
+        <div class="module-card">
+          <h2>👑 Special Syllabus & Past Papers</h2>
+          <p>Access curated national syllabi, mock trials, and revision tricks.</p>
+        </div>
+      </section>
+
+    </main>
+
+    <nav class="bottom-nav">
+      <button class="nav-btn" data-tab="homeTab">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </button>
+      <button class="nav-btn" data-tab="testTab">
+        <i class="fa-solid fa-pen-to-square"></i>
+        <span>Test Mode</span>
+      </button>
+      <button class="nav-btn" data-tab="examTab">
+        <i class="fa-solid fa-stopwatch"></i>
+        <span>Exam Mode</span>
+      </button>
+      <button class="nav-btn active" data-tab="veeTab">
+        <i class="fa-solid fa-robot"></i>
+        <span>Vee AI</span>
+      </button>
+      <button class="nav-btn" data-tab="specialTab">
+        <i class="fa-solid fa-crown"></i>
+        <span>Special</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
