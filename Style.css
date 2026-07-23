@@ -1,0 +1,395 @@
+/* ==========================================
+   COGNITO AI — SYSTEM STYLES (style.css)
+   ========================================== */
+
+/* 1. CORE THEME & VARIABLES */
+:root {
+  --bg-dark: #0a0518;
+  --bg-card: #130a2a;
+  --bg-input: #1a0e38;
+  --purple-primary: #7e22ce;
+  --purple-hover: #9333ea;
+  --purple-light: #f3e8ff;
+  --text-main: #ffffff;
+  --text-muted: #a78bfa;
+  --border-color: #2e1065;
+  
+  --success-bg: #14532d;
+  --success-border: #22c55e;
+  --success-text: #86efac;
+  
+  --danger-bg: #7f1d1d;
+  --danger-border: #ef4444;
+  --danger-text: #fca5a5;
+  
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+}
+
+/* 2. BASE RESET */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 480px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: var(--bg-dark);
+}
+
+/* 3. TOP BRAND HEADER */
+.top-header {
+  background: linear-gradient(180deg, #1e0b36 0%, var(--bg-dark) 100%);
+  padding: 18px 16px 12px;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.brand-title {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(126, 34, 206, 0.6);
+}
+
+.brand-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* 4. MAIN ACTIVE WORKSPACE & TABS */
+.main-workspace {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  padding-bottom: 90px; /* Clearance for bottom nav */
+}
+
+.tab-panel {
+  display: none;
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 5. CARDS & GENERAL UI ELEMENTS */
+.welcome-card, .module-card, .chat-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.welcome-card h2, .module-card h2 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #ffffff;
+}
+
+.welcome-card p, .module-card p {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.stat-card {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-card i {
+  font-size: 20px;
+  color: var(--purple-hover);
+  margin-bottom: 4px;
+}
+
+.stat-card span {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.stat-card small {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Filter Controls & Selects */
+.filter-controls {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.custom-select {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: #ffffff;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  outline: none;
+}
+
+.action-btn {
+  background: var(--purple-primary);
+  color: #ffffff;
+  border: none;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.action-btn:hover {
+  background: var(--purple-hover);
+}
+
+/* 6. VEE AI CHAT TAB */
+.chat-card {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 180px);
+  padding: 14px;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 700;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.chat-box {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  line-height: 1.5;
+  max-width: 85%;
+  word-break: break-word;
+}
+
+.vee-message {
+  background-color: var(--bg-input);
+  color: #f3e8ff;
+  border: 1px solid var(--border-color);
+  align-self: flex-start;
+  border-bottom-left-radius: 2px;
+}
+
+.user-message {
+  background-color: var(--purple-primary);
+  color: #ffffff;
+  align-self: flex-end;
+  border-bottom-right-radius: 2px;
+}
+
+.chat-input-bar {
+  display: flex;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-color);
+}
+
+.chat-input-bar input {
+  flex: 1;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: #ffffff;
+  padding: 11px 14px;
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  outline: none;
+}
+
+.chat-input-bar input:focus {
+  border-color: var(--purple-primary);
+}
+
+.send-btn {
+  background: var(--purple-primary);
+  color: #ffffff;
+  border: none;
+  padding: 0 16px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* 7. CBT TEST OPTIONS & FEEDBACK STATES */
+.test-workspace {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.question-text {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.option-btn {
+  background: var(--bg-card);
+  color: #e2e8f0;
+  border: 1.5px solid var(--border-color);
+  padding: 14px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.option-btn:hover {
+  border-color: var(--purple-primary);
+}
+
+/* Selected State */
+.option-btn.selected {
+  border-color: var(--purple-primary) !important;
+  background: var(--bg-input) !important;
+  color: #ffffff !important;
+  font-weight: 700;
+}
+
+/* Correct State (Green) */
+.option-btn.correct {
+  background-color: var(--success-bg) !important;
+  border-color: var(--success-border) !important;
+  color: var(--success-text) !important;
+  font-weight: 700;
+}
+
+/* Wrong State (Red) */
+.option-btn.wrong {
+  background-color: var(--danger-bg) !important;
+  border-color: var(--danger-border) !important;
+  color: var(--danger-text) !important;
+  font-weight: 700;
+}
+
+/* Explanation Cards */
+.explanation-card {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* 8. FIXED BOTTOM NAVIGATION BAR */
+.bottom-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 65px;
+  background: #0d0620;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 6px;
+  z-index: 1000;
+}
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+}
+
+.nav-btn i {
+  font-size: 17px;
+}
+
+.nav-btn span {
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.nav-btn.active {
+  color: #ffffff;
+  background: var(--purple-primary);
+  box-shadow: 0 0 12px rgba(126, 34, 206, 0.5);
+}
